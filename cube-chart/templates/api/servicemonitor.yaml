@@ -1,0 +1,22 @@
+{{- if .Values.config.serviceMonitor }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: cube-api
+  labels:
+    {{- include "cube.labels" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- toYaml .Values.commonLabels | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "cube.labels" . | nindent 6 }}
+      {{- if .Values.commonLabels }}
+      {{- toYaml .Values.commonLabels | nindent 6 }}
+      {{- end }}
+      app.kubernetes.io/component: api
+  endpoints:
+    - port: {{ .Values.config.metricsPortName }}
+      path: /metrics
+{{- end }}

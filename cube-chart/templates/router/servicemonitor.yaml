@@ -1,0 +1,19 @@
+{{- if .Values.router.serviceMonitor }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: cube-router
+  labels:
+    app.kubernetes.io/component: metrics
+    {{- include "cube.labels" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- toYaml .Values.commonLabels | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: router
+  endpoints:
+    - port: http-metrics
+      path: /metrics
+{{- end }}

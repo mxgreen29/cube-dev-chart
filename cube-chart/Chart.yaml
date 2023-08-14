@@ -1,0 +1,15 @@
+apiVersion: v2
+name: cube
+description: A Helm chart for Cube
+home: https://cube.dev
+type: application
+version: 2.0.1
+appVersion: "0.33.43"
+keywords:
+  - cubejs
+  - cube
+maintainers:
+  - email: maxkolpakov29@gmail.com
+    name: Maxim Kolpakov
+sources:
+  - https://github.com/cube-js/cube.js

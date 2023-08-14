@@ -1,0 +1,16 @@
+{{- if .Values.exporter.enabled }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cs-metrics
+  labels:
+    app: statsd-exporter
+data:
+  map.yml: |
+    mappings:
+    - match: ".+"
+      match_type: regex
+      name: "$0"
+      labels:
+        statsd_metric_name: "$0"
+{{- end }}
